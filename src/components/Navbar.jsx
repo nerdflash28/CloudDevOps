@@ -6,7 +6,7 @@ function Navbar() {
           <span className="self-center text-2xl font-bold whitespace-nowrap text-[#C8ACD6]">
             Notes
           </span>
-        </a>    
+        </a>
         <button
           data-collapse-toggle="navbar-default"
           type="button"
