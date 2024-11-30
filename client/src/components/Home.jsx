@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Notes from "./Notes";
 import { FaPlus } from "react-icons/fa6";
 import AddNote from "./AddNote";
-
+``
 function Home() {
   const [addNoteOpen, setAddNoteOpen] = useState(false);
   const handleAddNote = () => {
@@ -12,7 +12,6 @@ function Home() {
 
   useEffect(() => {
     const dataArray = localStorage.getItem("notes_data");
-    console.log('data: ', dataArray)
     if (dataArray === null) {
       localStorage.clear()
       localStorage.setItem("notes_data", JSON.stringify([]));
