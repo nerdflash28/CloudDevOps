@@ -1,29 +1,32 @@
-const pg = require("pg")
+const logger = require("./src/helper/logger")
+const { PrismaClient } = require('@prisma/client')
 
-const { Client } = pg
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-})
+const prisma = new PrismaClient()
 
-async function test() {
-    try {
-        const result = await client.query('SELECT NOW()')
-        // console.log(result)
-    } catch (err) {
-        throw err;
-    } finally {
-        await client.end()
-    }
+exports.createUser = async function() {
+    await prisma.User.create({
+        data: {
+            name: 'Prime',
+            email: 'prime@email.com',
+            password: 'password'
+        },
+    })
+
+    const allUsers = await prisma.user.findMany({
+        include: {
+            posts: true,
+            profile: true,
+        },
+    })
+    console.dir(allUsers, { depth: null })
 }
 
 exports.connectToDb = async function connectToDb(callback) {
     try {
-        await client.connect()
-        test();
-        console.log('db connected!')
+        exports.createUser();
         callback();
     } catch (err) {
-        throw err;
+        logger.fatal(err);
     }
 
 }
